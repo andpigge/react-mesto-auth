@@ -1,4 +1,9 @@
 .auth__link {
   text-decoration: none;
   color: white;
+  transition: color .1s ease-out;
+}
+
+.auth__link:hover {
+  color: rgba(255, 255, 255, .6);
 }

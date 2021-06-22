@@ -5,6 +5,11 @@
   line-height: 22px;
   min-height: 22px;
   text-decoration: none;
+  transition: color .1s linear;
+}
+
+.header__link-auth:hover {
+  color: rgba(255, 255, 255, .85);
 }
 
 @media screen and (max-width: 384px) {
