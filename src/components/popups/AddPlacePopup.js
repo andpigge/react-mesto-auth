@@ -2,8 +2,8 @@ import React, { useState, useEffect, useContext } from 'react';
 import PopupWithForm from './PopupWithForm';
 
 // Контекст
-import { ValidationFormContext } from '../../../../contexts/validationFormContext';
-import { LogicsAllPopups } from '../../../../contexts/logicsAllPopups';
+import { ValidationFormContext } from '../../contexts/validationFormContext';
+import { LogicsAllPopups } from '../../contexts/logicsAllPopups';
 
 function AddPlacePopup({ onAddPlace, loading }) {
   const [placeName, setPlaceName] = useState('');

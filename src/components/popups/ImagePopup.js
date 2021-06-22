@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 
 // Контекст
-import { LogicsAllPopups } from '../../../../contexts/logicsAllPopups';
+import { LogicsAllPopups } from '../../contexts/logicsAllPopups';
 
 function ImagePopup({ nameSelector }) {
 

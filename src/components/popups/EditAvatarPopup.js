@@ -3,7 +3,7 @@ import React, { useRef, useContext } from 'react';
 import PopupWithForm from './PopupWithForm';
 
 // Контекст
-import { LogicsAllPopups } from '../../../../contexts/logicsAllPopups';
+import { LogicsAllPopups } from '../../contexts/logicsAllPopups';
 
 function EditAvatarPopup({ onUpdateAvatar, loading }) {
   // Использую рефы

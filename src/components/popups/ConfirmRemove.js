@@ -3,7 +3,7 @@ import React, { useContext } from 'react';
 import PopupWithForm from './PopupWithForm';
 
 // Контекст
-import { LogicsAllPopups } from '../../../../contexts/logicsAllPopups';
+import { LogicsAllPopups } from '../../contexts/logicsAllPopups';
 
 function ConfirmRemove({ onRemoveCard, loading }) {
 

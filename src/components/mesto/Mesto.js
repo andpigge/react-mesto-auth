@@ -5,11 +5,11 @@ import Api from '../../utils/api';
 import Header from '../Header';
 import Main from './main/Main';
 import Footer from '../Footer';
-import ImagePopup from './main/popups/ImagePopup';
-import EditProfilePopup from './main/popups/EditProfilePopup';
-import EditAvatarPopup from './main/popups/EditAvatarPopup';
-import AddPlacePopup from './main/popups/AddPlacePopup';
-import ConfirmRemove from './main/popups/ConfirmRemove';
+import ImagePopup from '../popups/ImagePopup';
+import EditProfilePopup from '../popups/EditProfilePopup';
+import EditAvatarPopup from '../popups/EditAvatarPopup';
+import AddPlacePopup from '../popups/AddPlacePopup';
+import ConfirmRemove from '../popups/ConfirmRemove';
 
 // Контекст
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';

@@ -1,11 +1,11 @@
 import React, { useContext } from 'react';
 
 // Icon
-import iconSuccess from '../../../../images/icons/auth-success-popup.svg';
-import iconErr from '../../../../images/icons/auth-error-popup.svg';
+import iconSuccess from '../../images/icons/auth-success-popup.svg';
+import iconErr from '../../images/icons/auth-error-popup.svg';
 
 // Контекст
-import { LogicsAllPopups } from '../../../../contexts/logicsAllPopups';
+import { LogicsAllPopups } from '../../contexts/logicsAllPopups';
 
 function InfoTooltip({ name, authIn, messagePopup }) {
 

@@ -1,4 +1,4 @@
-import InfoTooltip from '../mesto/main/popups/InfoTooltip';
+import InfoTooltip from '../popups/InfoTooltip';
 
 function Auth({ titleAuth, authIn, children, messagePopup }) {
   // Максимум что удалось вытащить общего из компонентов

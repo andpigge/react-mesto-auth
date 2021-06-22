@@ -2,9 +2,9 @@ import React, { useEffect, useState, useContext } from 'react';
 import PopupWithForm from './PopupWithForm';
 
 // Контекст
-import { CurrentUserContext } from '../../../../contexts/CurrentUserContext';
-import { ValidationFormContext } from '../../../../contexts/validationFormContext';
-import { LogicsAllPopups } from '../../../../contexts/logicsAllPopups';
+import { CurrentUserContext } from '../../contexts/CurrentUserContext';
+import { ValidationFormContext } from '../../contexts/validationFormContext';
+import { LogicsAllPopups } from '../../contexts/logicsAllPopups';
 
 function EditProfilePopup({ onUpdateUser, loading }) {
   const [profileValue, setProfileValue] = useState({
