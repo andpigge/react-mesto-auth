@@ -90,11 +90,15 @@ function App() {
         }, 0);
       }
     })
-    .catch(rej => {
-      rej.then(err => {
+    .catch(err => {
+      // rej.then(err => {
         console.error(err.message);
+        
+        // Я в Api вернул Promise. Мне нужно получать ответ от сервера, что произошла не просто ошибка, а вывести сообщение которое сервер вернул в консоль. Я не знаю что у меня не так. Я могу так же проверить на статус ответа в response, и вывести там ответ от сервера в случае ошибки, но зачем, если с промисом все работало. В случае ошибки у меня в консоль выводиться undefined, так как я возвращаю promise с ошибкой в методе.
+        console.log(err)
+
         setLogIn(false);
-      });
+      // });
     })
     .finally(() => {
       handAuthClick();
@@ -124,11 +128,11 @@ function App() {
         closeAllPopups();
       }, 2000);
     })
-    .catch(rej => {
-      rej.then(err => {
+    .catch(err => {
+      // rej.then(err => {
         console.error(err.error);
         setRegIn(false);
-      });
+      // });
     })
     .finally(() => {
       handAuthClick();
