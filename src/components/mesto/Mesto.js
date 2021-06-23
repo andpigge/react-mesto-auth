@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { /* useState,  */useContext } from 'react';
 
 import Api from '../../utils/api';
 
@@ -16,9 +16,9 @@ import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import { CardListContext } from '../../contexts/cardListContext';
 import { LogicsAllPopups } from '../../contexts/logicsAllPopups';
 
-function Mesto({ setStateUser, setStateCards, loggedIn, signOut }) {
+function Mesto({ setStateUser, setStateCards, loggedIn, signOut, isLoadingData, setIsLoadingData }) {
 
-  const [isLoadingData, setIsLoadingData] = useState(false);
+  // const [isLoadingData, setIsLoadingData] = useState(false);
 
   const user = useContext(CurrentUserContext);
   const cardList = useContext(CardListContext);
@@ -30,6 +30,9 @@ function Mesto({ setStateUser, setStateCards, loggedIn, signOut }) {
       .then(newUser => {
         setStateUser(newUser);
         closeAllPopups();
+      })
+      .catch(err => {
+        console.error(err);
       })
       .finally(() => {
         setIsLoadingData(false);
@@ -43,16 +46,26 @@ function Mesto({ setStateUser, setStateCards, loggedIn, signOut }) {
         setStateUser(newUser);
         closeAllPopups();
       })
+      .catch(err => {
+        console.error(err);
+      })
       .finally(() => {
         setIsLoadingData(false);
       });
   };
 
   const handleAddPlaceSubmit = ({ name, link }) => {
+    setIsLoadingData(true);
     Api.postAddCard(name, link)
       .then(newCard => {
         setStateCards([newCard, ...cardList]);
         closeAllPopups();
+      })
+      .catch(err => {
+        console.error(err);
+      })
+      .finally(() => {
+        setIsLoadingData(false);
       });
   };
 
@@ -66,6 +79,9 @@ function Mesto({ setStateUser, setStateCards, loggedIn, signOut }) {
           });
         })
         closeAllPopups();
+    })
+    .catch(err => {
+      console.error(err);
     })
     .finally(() => {
       setIsLoadingData(false);
@@ -81,6 +97,9 @@ function Mesto({ setStateUser, setStateCards, loggedIn, signOut }) {
             return previousCard._id === idCard ? newCard : previousCard;
           });
         });
+      })
+      .catch(err => {
+        console.error(err);
       });
   };
 
@@ -92,6 +111,9 @@ function Mesto({ setStateUser, setStateCards, loggedIn, signOut }) {
             return previousCard._id === idCard ? newCard : previousCard;
           });
         });
+      })
+      .catch(err => {
+        console.error(err);
       });
   };
 

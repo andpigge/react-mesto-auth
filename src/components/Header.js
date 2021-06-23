@@ -66,6 +66,7 @@ function Header({ loggedIn, signOut }) {
 
   return (
     <>
+      {/* Эндпоинт 505px же, до этого размера шапка выглядит нормально. Я сразу проверяю когда зашел пользователь какое у него разрешение, и после при изменении экрана. Все проверил, все отлично. На страницах регистрация и вход такого меню не должно быть */}
       <MenuMobile signOut={ signOut } activeMenu={ activeMenu } />
       <header className='header page__position-center page__header'>
         <Link to={`${appUrl}/mesto`} target="_self" className="header__link">

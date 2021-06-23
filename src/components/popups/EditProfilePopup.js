@@ -25,12 +25,16 @@ function EditProfilePopup({ onUpdateUser, loading }) {
   } = useContext(LogicsAllPopups);
 
   // Вторым параметром передал переменные зависимости, те что используются в useEffect
+  // Нужно следить за состояние попапа
   useEffect(() => {
-    setProfileValue({
-      profileName: about,
-      profileDoes: name
-    });
-  }, [about, name]);
+    // Здесь без разницы когда будем подставлять данные, при закрытом или открытом попапе, важно что операция выполниться только в одном из этих случаев.
+    if (!isOpen) {
+      setProfileValue({
+        profileName: about,
+        profileDoes: name
+      });
+    }
+  }, [about, name, isOpen]);
 
   useEffect(() => {
     const isValidProfileName = validation(profileValue.profileName, 2, 40);
@@ -53,12 +57,11 @@ function EditProfilePopup({ onUpdateUser, loading }) {
   const handleSabmit = e => {
     e.preventDefault();
 
-    // Передаём значения управляемых компонентов во внешний обработчик
     onUpdateUser(profileValue);
   };
 
   return (
-    <PopupWithForm title={'Редактировать профиль'} name={'popup_edit_profile'} isOpen={isOpen} onClose={onClose} onSubmit={handleSabmit}>
+    <PopupWithForm title={'Редактировать профиль'} name={'popup_edit_profile'} isOpen={isOpen} onClose={onClose} onSubmit={handleSabmit} buttonText='Сохранить' loading={loading} >
       <>
         <label className="popup__form-label">
           {/* С помощью value и onChange создал управляющий компонент, где содержимое берется из state компонента */}
@@ -69,9 +72,6 @@ function EditProfilePopup({ onUpdateUser, loading }) {
           <input type="text" className="popup__form-input popup__form-input_value_does" id="profile-does-input" placeholder="Деятельность" name="profileDoes" minLength="2" maxLength="200" required value={profileDoes} onChange={handleChange} style={{borderBottom: !isValidProfileDoes ? '1px solid red' : ''}} />
           <span className={!isValidProfileDoes ? "popup__error-message profile-does-input-error popup__error-message_active" : "popup__error-message profile-does-input-error"}>Ошибка валидации</span>
         </label>
-        <button className="button-popup button-popup_edit_profile" type="submit" disabled={isValidProfileName && isValidProfileDoes ? false : true} style={{opacity: !(isValidProfileName && isValidProfileDoes) ? '.2' : ''}}>
-          {loading ? 'Сохранить...' : 'Сохранить'}
-        </button>
       </>
     </PopupWithForm>
   );

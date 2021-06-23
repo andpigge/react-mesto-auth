@@ -11,7 +11,7 @@ import Mesto from './mesto/Mesto';
 import Register from './auth/register/Register';
 import Login from './auth/login/Login';
 
-import { checkTokenApi } from '../utils/auth';
+import { checkTokenApi, signInApi, registerApi } from '../utils/auth';
 
 // Контекст
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
@@ -42,6 +42,9 @@ function App() {
       .then(([ user, cardList ]) => {
         setCurrentUser(user);
         setCardList(cardList);
+      })
+      .catch(err => {
+        console.error(err);
       });
   }, []);
 
@@ -58,6 +61,80 @@ function App() {
 
   // Статус пользователя
   const [loggedIn, setLoggedIn] = React.useState(false);
+
+  // Стутус загрузки данных
+  const [isLoadingData, setIsLoadingData] = useState(false);
+
+  const submitFormLogin = (e, setFieldValue, fieldValue, setLogIn) => {
+    e.preventDefault();
+    setIsLoadingData(true);
+    const { authEmail, authPassword } = fieldValue;
+    signInApi({
+      password: authPassword,
+      email: authEmail
+    })
+    .then(data => {
+      if (data.token) {
+        localStorage.setItem('jwt', data.token);
+        setFieldValue({
+          authEmail: '',
+          authPassword: ''
+        });
+        setLoggedIn(true);
+        // setLogIn(true);
+        // Единственный вариант, так как history.push() перенаправляет сразу, не дав переписать состояние
+        // По идее можно было бы использовать Promise, но он почему-то не срабатывает
+        setTimeout(() => {
+          history.push(`${appUrl}/mesto`);
+          closeAllPopups();
+        }, 0);
+      }
+    })
+    .catch(rej => {
+      rej.then(err => {
+        console.error(err.message);
+        setLogIn(false);
+      });
+    })
+    .finally(() => {
+      handAuthClick();
+      setIsLoadingData(false);
+    });
+  }
+
+  const submitFormReg = (e, setRegIn, fieldValue, setFieldValue) => {
+    e.preventDefault();
+    setIsLoadingData(true);
+    const { authEmail, authPassword } = fieldValue;
+    registerApi({
+      password: authPassword,
+      email: authEmail
+    })
+    .then(res => {
+      res.data.email ? localStorage.setItem('email', res.data.email)
+      : localStorage.setItem('email', 'Здесь должен быть Ваш email');
+      setRegIn(true);
+      setFieldValue({
+        authEmail: '',
+        authPassword: ''
+      });
+      // Единственный вариант, так как history.push() перенаправляет сразу, не дав переписать состояние
+      setTimeout(() => {
+        history.push(`${appUrl}/signin`);
+        closeAllPopups();
+      }, 2000);
+    })
+    .catch(rej => {
+      rej.then(err => {
+        console.error(err.error);
+        setRegIn(false);
+      });
+    })
+    .finally(() => {
+      handAuthClick();
+      setIsLoadingData(false);
+    });
+  }
 
   function closeAllPopups() {
     setEditAvatarPopupOpen(false);
@@ -79,6 +156,9 @@ function App() {
           : localStorage.setItem('email', 'Здесь должен быть Ваш email');
           setLoggedIn(true);
           history.push(`${appUrl}/mesto`);
+        })
+        .catch(err => {
+          console.error(err);
         });
     }
   });
@@ -143,9 +223,9 @@ function App() {
     isConfirmAuthPoppup
   };
 
-  const handleLogin = () => {
+  /* const handleLogin = () => {
     setLoggedIn(true);
-  };
+  }; */
 
   const signOut = () => {
     localStorage.removeItem('jwt');
@@ -162,7 +242,7 @@ function App() {
             <Switch>
 
               <ProtectedRoute path={`${appUrl}/mesto`} loggedIn={loggedIn} signOut={signOut}
-              setStateUser={setCurrentUser} setStateCards={setCardList} component={Mesto}
+              setStateUser={setCurrentUser} setStateCards={setCardList} isLoadingData={isLoadingData} setIsLoadingData={setIsLoadingData} component={Mesto}
               />
 
               {/* Если пользователь авторизировался, ему нельзя посещать эти страницы. Не знаю как реализовать, обычная запись не работает */}
@@ -170,10 +250,10 @@ function App() {
                 !loggedIn ? (
                 <> */}
                   <Route path={`${appUrl}/signup`}>
-                    <Register />
+                    <Register submitFormReg={submitFormReg} isLoadingData={isLoadingData} />
                   </Route>
                   <Route path={`${appUrl}/signin`}>
-                    <Login handleLogin={handleLogin} />
+                    <Login submitForm={submitFormLogin} isLoadingData={isLoadingData} />
                   </Route>
                 {/* </>
                 ) : null

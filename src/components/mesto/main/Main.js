@@ -39,19 +39,17 @@ function Main({ onCardLike }) {
         </div>
         <button className="profile__add-card-place" type="button" onClick={onAddPlace} />
       </section>
-
       <section className="place content__position-center content__place">
         <ul className="place__list">
           {
             cardList.length > 0 ?
             cardList.map(card => {
-              return <li className="place__item" key={card._id}>
-              {/* Передаю уникальный ключ, React сам подставит его. */}
-                <Card card={card} onCardClick={onCardClick} onCardLike={onCardLike} onCardDelete={onCardDelete} />
-              </li>
+              return (
+                <Card key={card._id} card={card} onCardClick={onCardClick} onCardLike={onCardLike} onCardDelete={onCardDelete} />
+              );
             }) :
             // Это прелоадер
-            <div className='place__result'></div>
+            (<div className='place__result' />)
           }
         </ul>
       </section>

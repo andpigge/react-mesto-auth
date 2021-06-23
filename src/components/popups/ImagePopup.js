@@ -13,7 +13,8 @@ function ImagePopup({ nameSelector }) {
   } = useContext(LogicsAllPopups);
 
   const onClosePopupContainer = e => {
-    if (e.target.className === `popup ${nameSelector} popup_opened`) {
+    /* e.target.className === `popup ${nameSelector} popup_opened` */
+    if (e.target.classList.contains('popup_opened')) {
       onClose();
     }
   };

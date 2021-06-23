@@ -31,15 +31,12 @@ function EditAvatarPopup({ onUpdateAvatar, loading }) {
   }
 
   return (
-    <PopupWithForm title={'Обновить аватар'} name={'popup_edit_img'} isOpen={isOpen} onClose={resetFormFieldsOnClose} onSubmit={handleSubmit}>
+    <PopupWithForm title={'Обновить аватар'} name={'popup_edit_img'} isOpen={isOpen} onClose={resetFormFieldsOnClose} onSubmit={handleSubmit} buttonText='Сохранить' loading={loading} >
       <>
         <label className="popup__form-label">
           <input type="url" className="popup__form-input" id="url-img-edit" placeholder="Ссылка на картинку" name="imgEdit" required ref={inputRef} />
           <span className="popup__error-message url-img-edit-error"></span>
         </label>
-        <button className="button-popup button-popup_edit_img" type="submit" >
-          {loading ? 'Сохранить...' : 'Сохранить'}
-        </button>
       </>
     </PopupWithForm>
   );

@@ -35,17 +35,20 @@ function Card({ card, onCardClick, onCardLike, onCardDelete }) {
   };
 
   return (
-    <div className="card-place">
-      <button className={ toggleClassIcon() } onClick={() => onCardDelete(card)} />
-      <img src={link} alt={name} className="card-place__img" onClick={cardClick} />
-      <h2 className="card-place__title">
-      {name}
-      </h2>
-      <div className="card-place__likes">
-      <button className={ isLiked() } type="button" onClick={cardLike} />
-      <span className="card-place__counter">{ likes.length }</span>
+    // Мне указали на ошибку БЭМ, что в одном компоненте не должно быть два разных блока. Поэтому и li вынес в Main, где этот класс будет к месту. Указали что по БЭМ классы place__item и card-place не могут быть вместе.
+    <li className="place__item">
+      <div className="card-place">
+        <button className={ toggleClassIcon() } onClick={() => onCardDelete(card)} />
+        <img src={link} alt={name} className="card-place__img" onClick={cardClick} />
+        <h2 className="card-place__title">
+        {name}
+        </h2>
+        <div className="card-place__likes">
+        <button className={ isLiked() } type="button" onClick={cardLike} />
+        <span className="card-place__counter">{ likes.length }</span>
+        </div>
       </div>
-    </div>
+    </li>
   );
 }
 

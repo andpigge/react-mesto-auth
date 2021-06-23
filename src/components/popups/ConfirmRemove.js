@@ -20,13 +20,7 @@ function ConfirmRemove({ onRemoveCard, loading }) {
   };
 
   return (
-    <PopupWithForm title={'Вы уверены?'} name={'popup_remove_card'} isOpen={isOpen} onClose={onClose} onSubmit={handleSubmit}>
-      <>
-        <button className="button-popup button-popup_delete_card" type="submit" >
-          {loading ? 'Да...' : 'Да'}
-        </button>
-      </>
-    </PopupWithForm>
+    <PopupWithForm title={'Вы уверены?'} name={'popup_remove_card'} isOpen={isOpen} onClose={onClose} onSubmit={handleSubmit} buttonText='Да' loading={loading} />
   );
 }
 

@@ -1,15 +1,15 @@
 import Header from '../../Header';
 import Auth from '../Auth';
 
-import React, { useState, useContext } from "react";
-import { useHistory } from 'react-router-dom';
+import React, { useState, /* useContext */ } from "react";
+// import { useHistory } from 'react-router-dom';
 
-import { LogicsAllPopups } from '../../../contexts/logicsAllPopups';
+// import { LogicsAllPopups } from '../../../contexts/logicsAllPopups';
 
-import { signInApi } from '../../../utils/auth';
-import { appUrl } from '../../../utils/constants';
+// import { signInApi } from '../../../utils/auth';
+// import { appUrl } from '../../../utils/constants';
 
-function Login({ handleLogin }) {
+function Login({ /* handleLogin */ submitForm, isLoadingData }) {
 
   const [fieldValue, setFieldValue] = useState({
     authEmail: '',
@@ -20,42 +20,42 @@ function Login({ handleLogin }) {
   const [logIn, setLogIn] = useState(false);
 
   // Контекст
-  const { handAuthClick, closeAllPopups } = useContext(LogicsAllPopups);
+  // const { handAuthClick, closeAllPopups } = useContext(LogicsAllPopups);
 
-  const history = useHistory();
+  // const history = useHistory();
 
-  const submitForm = e => {
-    e.preventDefault();
-    signInApi({
-      password: authPassword,
-      email: authEmail
-    })
-    .then(data => {
-      if (data.token) {
-        localStorage.setItem('jwt', data.token);
-        setFieldValue({
-          authEmail: '',
-          authPassword: ''
-        });
-        handleLogin();
-        setLogIn(true);
-        // Единственный вариант, так как history.push() перенаправляет сразу, не дав переписать состояние
-        setTimeout(() => {
-          history.push(`${appUrl}/mesto`);
-          closeAllPopups();
-        }, 2000);
-      }
-    })
-    .catch(rej => {
-      rej.then(err => {
-        console.error(err.message);
-        setLogIn(false);
-      });
-    })
-    .finally(() => {
-      handAuthClick();
-    });
-  }
+  // const submitForm = e => {
+  //   e.preventDefault();
+  //   signInApi({
+  //     password: authPassword,
+  //     email: authEmail
+  //   })
+  //   .then(data => {
+  //     if (data.token) {
+  //       localStorage.setItem('jwt', data.token);
+  //       setFieldValue({
+  //         authEmail: '',
+  //         authPassword: ''
+  //       });
+  //       handleLogin();
+  //       setLogIn(true);
+  //       // Единственный вариант, так как history.push() перенаправляет сразу, не дав переписать состояние
+  //       setTimeout(() => {
+  //         history.push(`${appUrl}/mesto`);
+  //         closeAllPopups();
+  //       }, 2000);
+  //     }
+  //   })
+  //   .catch(rej => {
+  //     rej.then(err => {
+  //       console.error(err.message);
+  //       setLogIn(false);
+  //     });
+  //   })
+  //   .finally(() => {
+  //     handAuthClick();
+  //   });
+  // }
 
   const setValueFields = e => {
     const { name, value } = e.target;
@@ -66,11 +66,11 @@ function Login({ handleLogin }) {
     <>
       <Header />
       <Auth titleAuth='Вход' authIn={logIn} messagePopup='Успех. Подождите...' >
-        <form className='auth__form' name='loginInMesto' onSubmit={ submitForm } >
+        <form className='auth__form' name='loginInMesto' onSubmit={ e => submitForm(e, setFieldValue, fieldValue, setLogIn) } >
           <input type='email' name='authEmail' className='auth__field-text' placeholder='Email' required onChange={setValueFields} value={ authEmail } />
           <input type='password' name='authPassword' className='auth__field-text' placeholder='Пароль' required onChange={setValueFields} value={ authPassword } />
           <button className='auth__form-button'>
-            Войти
+            {isLoadingData ? 'Войти...' : 'Войти'}
           </button>
         </form>
       </Auth>

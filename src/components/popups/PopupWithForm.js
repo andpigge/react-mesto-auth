@@ -1,4 +1,4 @@
-function PopupWithForm({title, name, isOpen, onClose, children, onSubmit }) {
+function PopupWithForm({title, name, isOpen, onClose, children, onSubmit, buttonText, loading }) {
 
   const onClosePopupContainer = e => {
     if (e.target.className === `popup ${name} popup_opened`) {
@@ -16,6 +16,10 @@ function PopupWithForm({title, name, isOpen, onClose, children, onSubmit }) {
               {title}
             </h2>
             {children}
+            {/* Так намного лучше */}
+            <button className="button-popup button-popup_add_card" type="submit">
+              {loading ? `${buttonText}...` : buttonText}
+            </button>
           </form>
         </div>
       </div>
