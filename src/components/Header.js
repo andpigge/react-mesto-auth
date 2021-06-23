@@ -33,15 +33,17 @@ function Header({ loggedIn, signOut }) {
 
   const checkUrl = () => {
     if (url === `${appUrl}/signup`) {
-      return <Link to={`${appUrl}/signin`} className='header__link-auth'>
+      return (
+      <Link to={`${appUrl}/signin`} className='header__link-auth'>
         Войти
-      </Link>;
-    }
+      </Link>
+    )}
     else if (url === `${appUrl}/signin`) {
-      return <Link to={`${appUrl}/signup`} className='header__link-auth'>
+      return (
+      <Link to={`${appUrl}/signup`} className='header__link-auth'>
         Регистрация
-      </Link>;
-    }
+      </Link>
+      )}
   }
 
   const renderEmail = () => {
